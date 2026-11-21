@@ -324,7 +324,7 @@ h2.jt::after{content:"";flex:1;height:1px;background:var(--bd)}
 </section>
 <script>
 var DAYS=["L","M","X","J","V"],DN={L:"Lunes",M:"Martes",X:"Miércoles",J:"Jueves",V:"Viernes",S:"Sábado",D:"Domingo"};
-var db=null,DBR=null,LID="main",LP="",LEAGUES=[{id:"main",name:"Liga principal"}],UNS=[],LTOK=0,uid=null,admin=false,ADMR=false,VA="admin",VAT="",CFG=null,TEAMS={},NAMES={},MEMBERS={},AV={},PK={},KEYUID={},CONTACTS=null,LOGOS={},ALG=false,TLD=false,WREST={},ICONS=["🎾","🏆","🔥","⚡","🐯","🦅","🐺","🦁","🐉","🚀","⭐","💥","🏐","🥇","🍀","🌊","🦈","🎯","🧨","👑"],CFGL=false,PAIRS=false,APPVER="21/11/2026 01:38",BLVER="21/11/2026 01:38",PRICES={court:15,po:23,f3:55,f4:40,disc:20},PAY={},AUTOAV=false,PLAY=null,PLAYL=false,WEEKS={},S={tab:"i",wk:1,m:[],rp:"",od:{},hi:{}},ready=false;
+var db=null,DBR=null,LID="main",LP="",LEAGUES=[{id:"main",name:"Liga principal"}],UNS=[],LTOK=0,uid=null,admin=false,ADMR=false,VA="admin",VAT="",CFG=null,TEAMS={},NAMES={},MEMBERS={},AV={},PK={},KEYUID={},CONTACTS=null,LOGOS={},ALG=false,TLD=false,WREST={},ICONS=["🎾","🏆","🔥","⚡","🐯","🦅","🐺","🦁","🐉","🚀","⭐","💥","🏐","🥇","🍀","🌊","🦈","🎯","🧨","👑"],CFGL=false,PAIRS=false,APPVER="21/11/2026 06:43",BLVER="21/11/2026 06:43",PRICES={court:15,po:23,f3:55,f4:40,disc:20},PAY={},AUTOAV=false,PLAY=null,PLAYL=false,WEEKS={},S={tab:"i",wk:1,m:[],rp:"",od:{},hi:{}},ready=false;
 function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 function rebuild(){TEAMS={};NAMES={};PK={};if(CFG&&CFG.teams)CFG.teams.forEach(function(t){TEAMS[t.id]=esc(t.name);NAMES[t.id]=t.players.map(esc);t.players.forEach(function(n,i){PK[t.id+i]=n.toLowerCase().trim()})});
 KEYUID={};for(var u in MEMBERS){var m=MEMBERS[u];if(m&&m.k)KEYUID[m.k]=u}}
@@ -1582,7 +1582,7 @@ if(!db){wh.textContent="";el.innerHTML='<div class="card">'+(BACKEND==="firebase
 if(!CFGL){wh.textContent="";el.innerHTML=(S.lgo?lgCard():"")+'<p class="sub">Cargando la liga…</p>';return}
 var w=who(),m=ME();
 var wfull=admin?"Sesión: administrador":m?"Sesión: "+myName()+" · "+w.teams.map(function(t){return TEAMS[t]+(isCap(t)?" (capitán)":"")}).join(", "):"";if(ADMR){wh.innerHTML=roleSel();wh.title="Probar la aplicación con otro rol"}else{wh.innerHTML=admin?"Administrador":m?(w.teams.some(function(t){return isCap(t)})?"Capitán":"Jugador"):"";wh.title=wfull}
-if(!Object.keys(TEAMS).length){el.innerHTML=(S.lgo?lgCard():"")+(admin?'<p class="sub">Configura los equipos para empezar.</p>'+viewCfg():'<div class="card">La liga aún no está configurada. Vuelve cuando la organización haya añadido los equipos.</div>');return}
+if(!Object.keys(TEAMS).length){el.innerHTML=(S.lgo?lgCard():"")+(admin?'<p class="sub">Configura los equipos para empezar.</p>'+viewCfg():'<div class="card">La liga aún no está configurada. Vuelve cuando la organización haya añadido los equipos.'+(BACKEND==="firebase"&&uid?'<div class="st" style="margin-top:10px">Tu código de usuario: <b style="word-break:break-all">'+esc(uid)+'</b></div>':'')+'</div>');return}
 var vh=S.team?teamDetail(S.team):{i:viewI,t:viewT,j:viewJ,d:viewEqx,u:viewU,p:viewP,c:admin?viewCfg:viewI,f:admin?viewF:viewI}[S.tab](),fb=S.team?"":fbar();
 if(fb){var sm=/^<div class="seg"[^>]*>[\s\S]*?<\/div>/.exec(vh);vh=sm?sm[0]+fb+vh.slice(sm[0].length):fb+vh}
 el.innerHTML=(w.k==="none"?viewJoin():"")+(S.lgo?lgCard():"")+archBanner()+roleBanner()+(admin?askCard():"")+vh}
